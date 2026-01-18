@@ -1,0 +1,22 @@
+# Compiled class files
+*.class
+target/
+
+# Log files
+*.log
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploaded images (if you want to ignore them)
+src/main/webapp/images/*
+!src/main/webapp/images/.gitkeep
