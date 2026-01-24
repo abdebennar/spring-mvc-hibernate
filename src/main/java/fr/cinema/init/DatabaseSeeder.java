@@ -7,9 +7,6 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class DatabaseSeeder {
 
     private final DataSource dataSource;

@@ -1,14 +1,12 @@
 package fr.cinema.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -18,20 +16,20 @@ import fr.cinema.filters.AuthInterceptor;
 @EnableWebMvc
 @ComponentScan(basePackages = "fr.cinema")
 public class WebConfig implements WebMvcConfigurer {
+    
+    // Freemarker configuration
 
-    @Autowired
+	@Autowired
     private AuthInterceptor authInterceptor;
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("org.h2.Driver");
-        ds.setUrl("jdbc:h2:file:./cinema_db;DB_CLOSE_DELAY=-1");
-        ds.setUsername("sa");
-        ds.setPassword("");
-        return ds;
-    }
-
+    // @Bean
+    // public FreeMarkerConfigurer freeMarkerConfigurer() {
+    //     FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+    //     configurer.setTemplateLoaderPath("/WEB-INF/views/");
+    //     configurer.setDefaultEncoding("UTF-8");
+    //     return configurer;
+    // }
+    
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -39,6 +37,24 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+    
+    // File upload support
+    // @Bean
+    // public CommonsMultipartResolver multipartResolver() {
+    //     CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+    //     resolver.setMaxUploadSize(10485760); // 10MB
+    //     return resolver;
+    // }
+    
+    // Static resources (images, CSS, JS)
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:/tmp/cinema-uploads/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("/static/");
+    }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
