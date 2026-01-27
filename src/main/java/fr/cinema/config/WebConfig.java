@@ -10,17 +10,19 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import fr.cinema.filters.AdminInterceptor;
 import fr.cinema.filters.AuthInterceptor;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "fr.cinema")
 public class WebConfig implements WebMvcConfigurer {
-    
-    // Freemarker configuration
 
-	@Autowired
+    // Freemarker configuration
+    @Autowired
     private AuthInterceptor authInterceptor;
+    @Autowired
+    private AdminInterceptor adminInterceptor;
 
     // @Bean
     // public FreeMarkerConfigurer freeMarkerConfigurer() {
@@ -29,7 +31,6 @@ public class WebConfig implements WebMvcConfigurer {
     //     configurer.setDefaultEncoding("UTF-8");
     //     return configurer;
     // }
-    
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -37,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
-    
+
     // File upload support
     // @Bean
     // public CommonsMultipartResolver multipartResolver() {
@@ -45,7 +46,6 @@ public class WebConfig implements WebMvcConfigurer {
     //     resolver.setMaxUploadSize(10485760); // 10MB
     //     return resolver;
     // }
-    
     // Static resources (images, CSS, JS)
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -55,11 +55,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("/static/");
     }
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**") // Apply to protected routes
                 .excludePathPatterns("/signin", "/signup", "/"); // Exclude public routes
+        registry.addInterceptor(adminInterceptor)
+                .addPathPatterns("/admin/**");
     }
 }

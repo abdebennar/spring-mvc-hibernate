@@ -4,13 +4,12 @@ DROP TABLE IF EXISTS auth_history;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS users;
 
--- Create users table
+-- Create users table (added phone column)
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE,
-    phone VARCHAR(20) UNIQUE NOT NULL,
+    phone VARCHAR(20),  -- added to match insert
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -24,7 +23,7 @@ CREATE TABLE auth_history (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Create images table (for Exercise 02)
+-- Create images table
 CREATE TABLE images (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
@@ -40,3 +39,4 @@ CREATE TABLE movies (
     title VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+

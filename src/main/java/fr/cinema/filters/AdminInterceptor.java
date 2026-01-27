@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import fr.cinema.models.JwtService;
 
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AdminInterceptor implements HandlerInterceptor {
 
     @Autowired
     private JwtService jwtService;
@@ -27,12 +27,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         if (jwtToken != null) {
-            if (jwtService.isTokenValid(jwtToken)) {
+            if (jwtService.isTokenValid(jwtToken)
+                    && jwtService.extractUserRole(jwtToken).equals("ADMIN")) {
                 request.setAttribute("username", jwtService.extractUsername(jwtToken));
                 return true; // Token is valid, proceed with the request
             }
         }
-        response.sendRedirect("/signin");
+        // response.sendRedirect("/signin");
+        response.getWriter().write("Access Denied: Admins Only and you are not, your place is nothing you piece of shit");
         return false;
     }
 }

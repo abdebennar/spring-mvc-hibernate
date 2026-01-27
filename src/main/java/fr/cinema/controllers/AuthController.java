@@ -3,7 +3,6 @@ package fr.cinema.controllers;
 import java.util.Optional;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.cinema.entities.User;
 import fr.cinema.models.JwtService;
 import fr.cinema.services.UserService;
+import fr.cinema.types.RoleType;
 
 @Controller
 public class AuthController {
@@ -78,7 +78,7 @@ public class AuthController {
             User user = userOpt.get();
 
             String userName = user.getUsername();
-            String jwtToken = jwtService.generateToken(userName);
+            String jwtToken = jwtService.generateToken(userName, RoleType.USER);
 
             // set as cockie
             Cookie cookie = new Cookie("jwtToken", jwtToken);
