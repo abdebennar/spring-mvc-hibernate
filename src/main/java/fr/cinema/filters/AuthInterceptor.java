@@ -19,10 +19,14 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         String jwtToken = null;
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("jwtToken")) {
-                jwtToken = cookie.getValue();
-                break;
+        Cookie[] cookies = request.getCookies();
+        
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("jwtToken")) {
+                    jwtToken = cookie.getValue();
+                    break;
+                }
             }
         }
 

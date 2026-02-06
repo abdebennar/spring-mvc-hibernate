@@ -49,6 +49,7 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- Uncomment these for WebSocket support (Exercise 02) -->
         <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>

@@ -56,6 +56,23 @@ public class UserRepository {
             throw new RuntimeException("Error finding user by username", e);
         }
     }
+    
+    public java.util.List<User> findAll() {
+        String sql = "SELECT * FROM users";
+        java.util.List<User> users = new java.util.ArrayList<>();
+        try (Connection conn = dataSource.getConnection(); 
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                users.add(mapResultSetToUser(rs));
+            }
+            return users;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding all users", e);
+        }
+    }
 
     public User save(User user) {
         String sql = "INSERT INTO users (username, email, password, created_at) VALUES (?, ?, ?, ?)";
