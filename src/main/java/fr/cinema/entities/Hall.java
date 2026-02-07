@@ -1,6 +1,9 @@
 package fr.cinema.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -18,6 +21,7 @@ public class Hall {
     private Integer seatsCount;
     
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Session> sessions;
     
     public Hall() {

@@ -2,6 +2,7 @@ package fr.cinema.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -19,6 +20,13 @@ public class WebApplicationConfig implements WebApplicationInitializer {
         servletContext.addServlet("dispatcher", dispatcherServlet).setLoadOnStartup(1);
         servletContext.getServletRegistration("dispatcher").addMapping("/");
 
+        // Register H2 Console Servlet
+        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet(
+            "H2Console", 
+            new org.h2.server.web.WebServlet()
+        );
+        h2ConsoleServlet.addMapping("/h2-console/*");
+        h2ConsoleServlet.setLoadOnStartup(2);
     }
 
 }

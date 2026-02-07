@@ -62,10 +62,10 @@ public class PersistenceConfig {
     
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect"); // ✅ H2 dialect
+        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.format_sql", "true");
-        properties.put("hibernate.hbm2ddl.auto", "none"); // Use schema.sql
+        properties.put("hibernate.hbm2ddl.auto", "update"); // Hibernate creates/updates tables from entities
         return properties;
     }
     
@@ -74,14 +74,12 @@ public class PersistenceConfig {
         return new JpaTransactionManager(emf);
     }
     
-    // Execute schema.sql and data.sql on startup
+    // Execute data.sql for database seeding after Hibernate creates tables
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(new ClassPathResource("sql/schema.sql"));
         populator.addScript(new ClassPathResource("sql/data.sql"));
-        populator.setContinueOnError(false);
-        populator.setIgnoreFailedDrops(true);
+        populator.setContinueOnError(true); // Don't fail if data already exists
         
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);

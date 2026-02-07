@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LandingPage {
 
     @GetMapping("/")
-    public String LandingPage() {
+    public String getLandingPage() {
         return "redirect:/dashboard";
     }
 }

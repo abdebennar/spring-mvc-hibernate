@@ -3,6 +3,9 @@ package fr.cinema.entities;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
 @Table(name = "chat_messages")
 public class ChatMessage {
@@ -22,6 +25,7 @@ public class ChatMessage {
     private String message;
     
     @Column(name = "sent_at", nullable = false)
+    @JsonIgnore
     private LocalDateTime sentAt;
     
     @Column(name = "ip_address")

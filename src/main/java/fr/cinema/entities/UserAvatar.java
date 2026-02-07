@@ -1,7 +1,15 @@
 package fr.cinema.entities;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_avatars")
@@ -21,6 +29,7 @@ public class UserAvatar {
     private String storedName;
     
     @Column(name = "uploaded_at", nullable = false)
+    @JsonIgnore
     private LocalDateTime uploadedAt;
     
     public UserAvatar() {
