@@ -95,11 +95,23 @@ public class AuthController {
         }
     }
 
-    // @GetMapping("/logout")
-    // public String logout(HttpSession session) {
-    //     session.invalidate();
-    //     return "redirect:/signin";
-    // }
+    @GetMapping("/logout")
+    public String logout(
+                    HttpSession session,
+                    HttpServletResponse response
+    ) {
+        Cookie cookie = new Cookie("jwtToken", null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+
+
+        response.addCookie(cookie);
+        session.invalidate();
+        return "redirect:/signin";
+    }
+
+
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, HttpServletRequest request, Model model) {
 

@@ -1,13 +1,25 @@
 package fr.cinema.entities;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "users") // optional
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    private String password; // Will store hashed password
+
+    @Column(nullable = false)
+    private String password;
+
     private LocalDateTime createdAt;
 
     public User() {
