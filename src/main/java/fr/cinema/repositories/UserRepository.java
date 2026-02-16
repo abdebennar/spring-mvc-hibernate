@@ -22,7 +22,7 @@ public class UserRepository {
     public Optional<User> findByEmail(String email) {
         try {
             TypedQuery<User> query = entityManager.createQuery(
-                "SELECT u FROM User u WHERE u.email = :email", User.class);
+                    "SELECT u FROM User u WHERE u.email = :email", User.class);
             query.setParameter("email", email);
             return Optional.of(query.getSingleResult());
         } catch (NoResultException e) {
@@ -33,17 +33,17 @@ public class UserRepository {
     public Optional<User> findByUsername(String username) {
         try {
             TypedQuery<User> query = entityManager.createQuery(
-                "SELECT u FROM User u WHERE u.username = :username", User.class);
+                    "SELECT u FROM User u WHERE u.username = :username", User.class);
             query.setParameter("username", username);
             return Optional.of(query.getSingleResult());
         } catch (NoResultException e) {
             return Optional.empty();
         }
     }
-    
+
     public List<User> findAll() {
         TypedQuery<User> query = entityManager.createQuery(
-            "SELECT u FROM User u", User.class);
+                "SELECT u FROM User u", User.class);
         return query.getResultList();
     }
 

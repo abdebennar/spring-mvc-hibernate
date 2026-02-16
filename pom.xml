@@ -13,7 +13,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>5.3.31</spring.version>
+        <spring.version>6.2.6</spring.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
     </properties>
 
@@ -90,20 +90,21 @@
         <!-- Spring Freemarker Integration -->
 
         <!-- Servlet API -->
+		
+		
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
+		
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.15.3</version>
         </dependency>
-
-      
 
         <dependency>
             <groupId>commons-fileupload</groupId>

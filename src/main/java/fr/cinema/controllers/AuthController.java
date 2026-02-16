@@ -2,10 +2,10 @@ package fr.cinema.controllers;
 
 import java.util.Optional;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,20 +97,18 @@ public class AuthController {
 
     @GetMapping("/logout")
     public String logout(
-                    HttpSession session,
-                    HttpServletResponse response
+            HttpSession session,
+            HttpServletResponse response
     ) {
         Cookie cookie = new Cookie("jwtToken", null);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(0);
 
-
         response.addCookie(cookie);
         session.invalidate();
         return "redirect:/signin";
     }
-
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, HttpServletRequest request, Model model) {

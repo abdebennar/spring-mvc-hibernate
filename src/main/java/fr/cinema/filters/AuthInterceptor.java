@@ -1,14 +1,13 @@
 package fr.cinema.filters;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import fr.cinema.models.JwtService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
@@ -20,7 +19,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             throws Exception {
         String jwtToken = null;
         Cookie[] cookies = request.getCookies();
-        
+
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("jwtToken")) {
