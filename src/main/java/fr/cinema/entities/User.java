@@ -1,7 +1,13 @@
 package fr.cinema.entities;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users") // optional
@@ -19,6 +25,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(name = "is_admin", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isAdmin = false;
 
     private LocalDateTime createdAt;
 

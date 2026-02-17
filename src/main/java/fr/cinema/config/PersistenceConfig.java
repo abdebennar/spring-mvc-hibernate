@@ -40,7 +40,7 @@ public class PersistenceConfig {
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName(dbDriver); // ✅ org.h2.Driver
+        dataSource.setDriverClassName(dbDriver);
         dataSource.setJdbcUrl(dbUrl);
         dataSource.setUsername(dbUsername);
         dataSource.setPassword(dbPassword);

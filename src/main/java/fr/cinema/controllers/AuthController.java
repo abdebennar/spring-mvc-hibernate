@@ -78,7 +78,7 @@ public class AuthController {
             User user = userOpt.get();
 
             String userName = user.getUsername();
-            String jwtToken = jwtService.generateToken(userName, RoleType.ADMIN);
+            String jwtToken = jwtService.generateToken(userName, RoleType.USER);
 
             // set as cockie
             Cookie cookie = new Cookie("jwtToken", jwtToken);
