@@ -24,42 +24,42 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class PersistenceConfig {
-    
+
     @Value("${db.url}")
     private String dbUrl;
-    
+
     @Value("${db.username}")
     private String dbUsername;
-    
+
     @Value("${db.password}")
     private String dbPassword;
-    
+
     @Value("${db.driver}")
     private String dbDriver;
-    
+
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName(dbDriver); // ✅ org.h2.Driver
+        dataSource.setDriverClassName(dbDriver);
         dataSource.setJdbcUrl(dbUrl);
         dataSource.setUsername(dbUsername);
         dataSource.setPassword(dbPassword);
         return dataSource;
     }
-    
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan("fr.cinema.entities");
-        
+
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(hibernateProperties());
-        
+
         return em;
     }
-    
+
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
@@ -68,23 +68,23 @@ public class PersistenceConfig {
         properties.put("hibernate.hbm2ddl.auto", "update"); // Hibernate creates/updates tables from entities
         return properties;
     }
-    
+
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
-    
+
     // Execute data.sql for database seeding after Hibernate creates tables
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(new ClassPathResource("sql/data.sql"));
         populator.setContinueOnError(true); // Don't fail if data already exists
-        
+
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(populator);
-        
+
         return initializer;
     }
 }

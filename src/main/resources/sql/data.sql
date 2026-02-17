@@ -1,10 +1,11 @@
 -- Seed data for cinema application
 
 -- Insert users
-INSERT INTO users (username, email, phone, password, created_at) VALUES
-('johndoe', 'john@example.com', '+1234567890', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYuQXbG8R8W', CURRENT_TIMESTAMP),
-('janesmith', 'jane@example.com', '+1234567891', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYuQXbG8R8W', CURRENT_TIMESTAMP),
-('alice', 'alice@example.com', '+1234567892', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYuQXbG8R8W', CURRENT_TIMESTAMP);
+INSERT INTO users (username, email, password, is_admin) VALUES
+('abennar', 'abennar@example.com', '5KuuU8wc6+X+ieqTiCxpml5xqwu/Qqg7fYM5dbYcSkE=', true),
+('janesmith', 'jane@example.com', '5KuuU8wc6+X+ieqTiCxpml5xqwu/Qqg7fYM5dbYcSkE=', false),
+('alice', 'alice@example.com', '5KuuU8wc6+X+ieqTiCxpml5xqwu/Qqg7fYM5dbYcSkE=', false);
+
 
 -- Insert halls
 INSERT INTO halls (serial_number, seats_count) VALUES
