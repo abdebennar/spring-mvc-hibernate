@@ -1,6 +1,6 @@
 package fr.cinema.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
